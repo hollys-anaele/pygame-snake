@@ -28,7 +28,7 @@ DIRECTION_UP = (0, -1)
 DIRECTION_DOWN = (0, 1)
 
 # Background color of the snake grid.
-COLOR_BACKGROUND = (255, 255, 255)  # rgb color for white
+COLOR_BACKGROUND = (0, 255, 213)  # rgb color for white
 # This is the color of the snake's head. 
 COLOR_SNAKE_HEAD = (255, 0, 0)      # rgb color for red
 # This is the color of the rest of the snake.
@@ -79,13 +79,13 @@ def snake_ran_out_of_bounds(snake):
     Note that the grid is GRID_WIDTH cells wide and GRID_HEIGHT cells high.
     """
 
-    if snake[0][0]> GRID_WIDTH:
+    if snake[0][0] >= GRID_WIDTH:
         return True
-    if snake[0][0] < 0:
+    if snake[0][0] <= 0:
         return True
-    if snake[0][1] > GRID_HEIGHT:
+    if snake[0][1] >= GRID_HEIGHT:
         return True
-    if snake[0][1] < 0:
+    if snake[0][1] <= 0:
         return True
     return False
 
