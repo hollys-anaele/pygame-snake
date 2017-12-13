@@ -1,7 +1,7 @@
 '''
 Snake game.
 Authors:
-<insert the names of your teammates here>
+Colby Warrior, Ahman Potter, Hollys Anaele
 '''
 
 import pygame
@@ -44,13 +44,13 @@ def get_direction(previous_direction, event_key):
     event_key - the event that the user pressed; one of https://www.pygame.org/docs/ref/key.html
     If event_key does not correspond with any of the arrows keys, return previous_direction.
     """
-    if event_key == pygame.K_LEFT:
+    if event_key == pygame.K_LEFT and previous_direction != DIRECTION_RIGHT:
         return DIRECTION_LEFT
-    elif event_key == pygame.K_UP:
+    elif event_key == pygame.K_UP and previous_direction != DIRECTION_DOWN:
         return DIRECTION_UP
-    elif event_key == pygame.K_RIGHT:
+    elif event_key == pygame.K_RIGHT and previous_direction != DIRECTION_LEFT:
         return DIRECTION_RIGHT
-    elif event_key == pygame.K_DOWN:
+    elif event_key == pygame.K_DOWN and previous_direction != DIRECTION_UP:
         return DIRECTION_DOWN
     return previous_direction
 
@@ -79,13 +79,13 @@ def snake_ran_out_of_bounds(snake):
     Note that the grid is GRID_WIDTH cells wide and GRID_HEIGHT cells high.
     """
 
-    if snake[0][0] >= GRID_WIDTH:
+    if snake[0][0] > GRID_WIDTH:
         return True
-    if snake[0][0] <= 0:
+    if snake[0][0] < 0:
         return True
-    if snake[0][1] >= GRID_HEIGHT:
+    if snake[0][1] > GRID_HEIGHT:
         return True
-    if snake[0][1] <= 0:
+    if snake[0][1] < 0:
         return True
     return False
 
@@ -114,8 +114,10 @@ def get_game_over_text(score):
     This text should contain 'Game Over' as well as the score.
     score - integer representing the current score of the game.
     """
-    
-    return 'Game Over.' 
+   
+    return 'Game Over.' + ' Score:' + str(score)
+
+   
 
 def get_snake_speed(snake):
     """Return the number of cells the snake should travel in one second.
@@ -123,6 +125,10 @@ def get_snake_speed(snake):
     The speed at the beginning of the game should be 5. Once the snake has eaten 10 pieces of food,
     the speed of the game should increase (by how much is up to you).
     """
+    if len(snake) >= 20:
+        return 20
+    elif len(snake) >= 15:
+        return 10
     return 5
 
 def move_snake(snake, direction, food):
